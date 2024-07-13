@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(MyApp());
@@ -9,9 +10,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Intro Page',
+      title: 'Developer Intro Page',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        brightness: Brightness.dark,
+        primaryColor: Colors.blue,
+        textTheme: GoogleFonts.latoTextTheme(
+          Theme.of(context).textTheme,
+        ),
       ),
       home: IntroPage(),
     );
@@ -36,49 +41,77 @@ class IntroPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
         title: Text('Welcome!'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            CircleAvatar(
-              radius: 50,
-              backgroundImage: NetworkImage('https://website-aaijmrt-media.s3.ap-south-1.amazonaws.com/20240625_151151~2.jpg'), // Replace with your photo URL
-            ),
-            SizedBox(height: 16),
-            Text(
-              'Amit Raj',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 8),
-            Text(
-              'Engineer',
-              style: TextStyle(fontSize: 18, color: Colors.grey[700]),
-            ),
-            SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.link),
-                  onPressed: () => _launchURL(linkedinUrl),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              CircleAvatar(
+                radius: 80, // Increased radius for larger photo
+                backgroundImage: NetworkImage('https://website-aaijmrt-media.s3.ap-south-1.amazonaws.com/20240625_151151~2.jpg'), // Updated photo URL
+              ),
+              SizedBox(height: 20),
+              Text(
+                'Amit Raj',
+                style: GoogleFonts.roboto(
+                  fontSize: 32,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
                 ),
-                IconButton(
-                  icon: Icon(Icons.code),
-                  onPressed: () => _launchURL(githubUrl),
+              ),
+              SizedBox(height: 10),
+              Text(
+                'Software Engineer',
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.blueAccent,
+                  letterSpacing: 2.5,
                 ),
-                IconButton(
-                  icon: Icon(Icons.linked_camera),
-                  onPressed: () => _launchURL(instagramUrl),
+              ),
+              SizedBox(height: 20),
+              Text(
+                'Passionate about building scalable software, '
+                'creating effective solutions, and learning every day to '
+                'grow professionally in the IT field.',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.white70,
                 ),
-              ],
-            ),
-          ],
+              ),
+              SizedBox(height: 30),
+              Divider(
+                color: Colors.white54,
+                thickness: 1,
+              ),
+              SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  _buildSocialIcon(Icons.link, linkedinUrl),
+                  _buildSocialIcon(Icons.code, githubUrl),
+                  _buildSocialIcon(Icons.photo_camera, instagramUrl),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
+    );
+  }
+
+  Widget _buildSocialIcon(IconData icon, String url) {
+    return IconButton(
+      icon: Icon(icon, color: Colors.white, size: 30),
+      onPressed: () => _launchURL(url),
+      padding: EdgeInsets.symmetric(horizontal: 16),
     );
   }
 }
