@@ -78,8 +78,7 @@ class IntroPage extends StatelessWidget {
               SizedBox(height: 20),
               Text(
                 'Passionate about building scalable software, '
-                'creating effective solutions, and learning every day to '
-                'grow professionally in the IT field.',
+                'creating effective solutions, and learning every day.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 16,
